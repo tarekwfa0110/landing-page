@@ -43,7 +43,7 @@ const features: Feature[] = [
   {
     id: '6',
     title: 'Cross-platform Support',
-    description: 'Access your work from any device. Desktop, tablet, or mobile - we've got you covered.',
+    description: "Access your work from any device. Desktop, tablet, or mobile - we've got you covered.",
     icon: '🔄',
   },
 ];
