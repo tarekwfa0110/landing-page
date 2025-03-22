@@ -1,6 +1,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { handleMouseMove } from '@/lib/utils';
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -33,7 +36,12 @@ export function HeroSection() {
         {/* Hero content */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-16">
           {/* Text content */}
-          <div className={`w-full md:w-1/2 space-y-6 md:space-y-8 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <motion.div 
+            className="w-full md:w-1/2 space-y-6 md:space-y-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
             <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800/50">
               <span className="text-xs font-medium text-blue-600 dark:text-blue-400">Introducing the future</span>
             </div>
@@ -48,12 +56,12 @@ export function HeroSection() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button className="px-8 py-3.5 bg-primary text-white rounded-full font-medium hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 transform hover:-translate-y-0.5">
-                Get Started
-              </button>
-              <button className="px-8 py-3.5 bg-white dark:bg-gray-800 rounded-full font-medium border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300">
-                Watch Demo
-              </button>
+              <Button asChild size="lg" className="px-8 py-6 bg-primary text-white rounded-full font-medium hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 transform hover:-translate-y-0.5">
+                <Link to="/pricing">Get Started</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="px-8 py-6 bg-white dark:bg-gray-800 rounded-full font-medium border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300">
+                <Link to="/showcase">View Showcase</Link>
+              </Button>
             </div>
             
             <div className="flex items-center gap-3 pt-6">
@@ -66,10 +74,15 @@ export function HeroSection() {
                 <span className="font-medium text-gray-900 dark:text-white">2,500+</span> satisfied customers
               </div>
             </div>
-          </div>
+          </motion.div>
           
           {/* 3D Animation */}
-          <div className={`w-full md:w-1/2 h-[400px] md:h-[500px] perspective transition-all duration-1000 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <motion.div 
+            className="w-full md:w-1/2 h-[400px] md:h-[500px] perspective"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+          >
             <div 
               className="w-full h-full preserve-3d transition-transform duration-200 ease-out"
               style={{ 
@@ -101,11 +114,16 @@ export function HeroSection() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
         
         {/* Logos section */}
-        <div className={`pt-4 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <motion.div 
+          className="pt-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.6 }}
+        >
           <p className="text-sm text-center text-gray-500 dark:text-gray-400 mb-8">
             Trusted by innovative companies worldwide
           </p>
@@ -114,15 +132,20 @@ export function HeroSection() {
               <div key={i} className="h-7 w-24 bg-gray-200 dark:bg-gray-800 rounded-md animate-pulse-soft" style={{ animationDelay: `${i * 0.2}s` }}></div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
       
       {/* Scroll indicator */}
-      <div className={`absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+      <motion.div 
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 1 }}
+      >
         <div className="w-6 h-10 rounded-full border-2 border-gray-400 dark:border-gray-600 flex justify-center pt-2">
           <div className="w-1 h-2 bg-gray-400 dark:bg-gray-600 rounded-full"></div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
