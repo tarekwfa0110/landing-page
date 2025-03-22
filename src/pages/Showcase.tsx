@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -12,6 +11,8 @@ import {
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { useQuery } from '@tanstack/react-query';
+import { ShowcaseModel } from '@/components/ShowcaseModel';
+import { ShowcaseHero3D } from '@/components/ShowcaseHero3D';
 
 // Simulated API call to fetch showcase data
 const fetchShowcaseData = async () => {
@@ -70,23 +71,8 @@ const ShowcaseItem = ({ item, index }: { item: any; index: number }) => {
       transition={{ duration: 0.6, delay: 0.1 }}
     >
       <div className={`w-full md:w-1/2 ${index % 2 === 1 ? 'md:order-2' : ''}`}>
-        <div className="relative aspect-video overflow-hidden rounded-2xl shadow-2xl">
-          <img 
-            src={item.image} 
-            alt={item.title} 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
-            <div className="p-6">
-              <div className="flex flex-wrap gap-2 mb-3">
-                {item.tags.map((tag: string) => (
-                  <span key={tag} className="text-xs font-medium bg-white/20 backdrop-blur-sm text-white rounded-full px-2.5 py-1">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
+        <div className="relative overflow-hidden rounded-2xl shadow-2xl">
+          <ShowcaseModel />
         </div>
       </div>
       
@@ -148,16 +134,10 @@ const Showcase = () => {
     >
       <Header />
       <main className="flex-grow">
-        {/* Hero section */}
-        <div ref={containerRef} className="relative h-[60vh] min-h-[500px] flex items-center overflow-hidden">
-          <motion.div 
-            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat" 
-            style={{ 
-              backgroundImage: 'url(https://placehold.co/1920x1080/2053b8/ffffff?text=Showcase)',
-              y: backgroundY
-            }}
-          />
-          <div className="absolute inset-0 bg-black/50 z-10" />
+        {/* Hero section with 3D animation */}
+        <div ref={containerRef} className="relative h-[80vh] min-h-[600px] flex items-center overflow-hidden">
+          <ShowcaseHero3D />
+          <div className="absolute inset-0 bg-black/30 z-10" />
           <div className="relative z-20 max-w-7xl mx-auto px-4 text-white text-center">
             <motion.h1 
               className="text-4xl md:text-6xl font-bold mb-6"
@@ -190,13 +170,13 @@ const Showcase = () => {
           </div>
         </div>
 
-        {/* Carousel section */}
+        {/* 3D Carousel section */}
         <div className="py-20 bg-gray-50 dark:bg-gray-900/50">
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">Featured Projects</h2>
               <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                Swipe through our most impressive implementations
+                Explore our interactive 3D showcases
               </p>
             </div>
             
@@ -205,12 +185,8 @@ const Showcase = () => {
                 {showcaseItems.map((item) => (
                   <CarouselItem key={item.id}>
                     <div className="p-1">
-                      <div className="overflow-hidden rounded-xl">
-                        <img 
-                          src={item.image} 
-                          alt={item.title} 
-                          className="w-full aspect-video object-cover"
-                        />
+                      <div className="h-[400px] overflow-hidden rounded-xl">
+                        <ShowcaseModel />
                       </div>
                       <div className="mt-4 text-center">
                         <h3 className="text-xl font-semibold">{item.title}</h3>
@@ -228,7 +204,7 @@ const Showcase = () => {
           </div>
         </div>
 
-        {/* Detailed showcase items */}
+        {/* Detailed showcase items with 3D models */}
         <div className="max-w-7xl mx-auto px-4 py-20 divide-y divide-gray-200 dark:divide-gray-800">
           {showcaseItems.map((item, index) => (
             <ShowcaseItem key={item.id} item={item} index={index} />
